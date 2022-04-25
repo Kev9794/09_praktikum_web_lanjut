@@ -48,7 +48,7 @@
 
                 <a class="btn btn-info" href="{{ route('mahasiswa.show',$mhs->nim) }}">Show</a>
                 <a class="btn btn-primary" href="{{ route('mahasiswa.edit',$mhs->nim) }}">Edit</a>
-
+                <a class="btn btn-secondary" href="{{ route('nilai',$mhs->nim) }}">Nilai Mhs</a>
                 @csrf
                 @method('DELETE')
 

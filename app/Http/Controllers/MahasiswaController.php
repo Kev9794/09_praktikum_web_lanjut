@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use App\Models\Kelas;
+use App\Models\Mahasiswa_Matakuliah;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -121,5 +123,15 @@ class MahasiswaController extends Controller
 
         //Mengirim data mahasiswa ke view index
         return view('mahasiswa.index', ['mahasiswa' => $mahasiswa]);
+    }
+
+    public function nilai($id_mahasiswa)
+    {
+        // Join relasi ke mahasiswa dan mata kuliah
+        $mhs = Mahasiswa_MataKuliah::with('matakuliah')->where("mahasiswa_id", $id_mahasiswa)->get();
+        $mhs->mahasiswa = Mahasiswa::with('kelas')->where("nim", $id_mahasiswa)->first();
+        //dd($mhs[0]);
+        // Menampilkan nilai
+        return view('mahasiswa.nilai', compact('mhs'));
     }
 }
